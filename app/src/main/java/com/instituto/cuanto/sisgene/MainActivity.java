@@ -45,6 +45,8 @@ import com.instituto.cuanto.sisgene.forms.ValidarAdministradorResponse;
 import com.instituto.cuanto.sisgene.util.Criptografo;
 import com.instituto.cuanto.sisgene.util.LeerProperties;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.io.File;
 import android.os.Environment;
@@ -213,14 +215,25 @@ public class MainActivity extends AppCompatActivity {
             validarRequest.setClave(clvUsu);
             validarRequest.setCodigo_encuesta(codEncuesta);
 
-            final String jsonEnviar = gson.toJson(validarRequest);
+            String jsonEnviar = gson.toJson(validarRequest);
+
+            //nuevos cambios ========================
+            try {
+                String a = URLEncoder.encode(jsonEnviar, "UTF-8");
+                System.out.println("\n\nJSON CODIFICADO : "+a);
+                jsonEnviar = a;
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            //nuevos cambios ========================
 
             //provisional
             /*ip="192.168.1.41";
             puerto="8085";*/
 
-            ip="192.168.1.40";
-            puerto="8083";
+            ip="190.40.162.59";
+            puerto="8085";
 
 
             /*ip="190.40.162.59";
@@ -230,11 +243,11 @@ public class MainActivity extends AppCompatActivity {
             //puerto="8085";
 
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
+                    .setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/WebServiceSISGENE")
                     //.setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/resources/WebServiceSISGENE")//apache
                     //.setEndpoint("http://172.16.139.227:8080/WSSisgene/resources/WebServiceSISGENE")
                     .build();
-
+            System.out.println("JSON a enviar: {"+jsonEnviar+"}");
             ClienteService service = restAdapter.create(ClienteService.class);
 
             service.repositorySync(jsonEnviar, new Callback<ValidarAdministradorResponse>() {
@@ -256,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Toast.makeText(MainActivity.this, "Ocurrio un error en la carga de Información, verifique su conexión a Internet", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "mOcurrio un error en la carga de Información, verifique su conexión a Internet", Toast.LENGTH_LONG).show();
                     progressDialog.hide();
                 }
             });

@@ -971,7 +971,8 @@ public class PreguntasActivity extends AppCompatActivity {
     private void guardarRespuesta(String rpta) {
 
         CabeceraRespuestaDAO cabeceraRespuestaDAO = new CabeceraRespuestaDAO();
-        System.out.println("Guardar respuesta: " + rpta);
+        System.out.println("******************Guardar respuesta " +idPregunta +","+tipoPreguntaActual+"["+ rpta+"]");
+
 
         //Obtener el ultimo Id de la tabla cab_enc_rpta, para ser usado al guardar la pregunta
         CabeceraRespuesta cabeceraRespuesta = cabeceraRespuestaDAO.obteneridUltimaCabecera(PreguntasActivity.this);

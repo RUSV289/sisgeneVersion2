@@ -110,8 +110,11 @@ public class EnvioServiceUtil {
             /*ip="192.168.1.41";
             puerto="8085";*/
 
-            ip="192.168.1.40";
-            puerto="8083";
+            //ip="192.168.1.40";
+            //puerto="8083";
+
+            ip="190.40.162.59";
+            puerto="8085";
 
             /*ip="190.40.162.59";
             puerto="8085";*/
@@ -121,7 +124,8 @@ public class EnvioServiceUtil {
 
             RestAdapter restAdapter = new RestAdapter.Builder()
                     //.setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/resources/WebServiceSISGENE")
-                    .setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
+                    //.setEndpoint("http://"+ip+":"+puerto+"/resources/WebServiceSISGENE")
+                    .setEndpoint("http://"+ip+":"+puerto+"/WSSisgene/WebServiceSISGENE")
                     .build();
 
             EnvioService service = restAdapter.create(EnvioService.class);
